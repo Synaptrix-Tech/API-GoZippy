@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  gozippy:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=gozippy
+      - POSTGRESQL_PASSWORD=gozippy
+      - POSTGRESQL_DATABASE=gozippy
