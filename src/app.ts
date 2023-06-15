@@ -1,7 +1,6 @@
 import fastify from 'fastify'
+import { usersRoutes } from './http/controllers/user/routes'
 
 export const app = fastify()
 
-app.get('/', async (request, reply) => {
-  return { hello: 'world' }
-})
+app.register(usersRoutes)
