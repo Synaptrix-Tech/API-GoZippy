@@ -39,7 +39,9 @@ model Address {
   city       String
   state      String
   country    String
-  postalCode String
+  zipCode    String
+  number     String
+  complement String?
   selected   Boolean
 
   @@map("addresses")
