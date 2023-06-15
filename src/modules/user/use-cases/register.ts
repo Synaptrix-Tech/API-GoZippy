@@ -32,7 +32,7 @@ export class RegisterUseCase {
     const user = await this.usersRepository.create({
       name,
       email,
-      password: passwordHash,
+      password_hash: passwordHash,
     })
 
     return { user }
