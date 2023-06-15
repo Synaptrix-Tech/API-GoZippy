@@ -19,14 +19,16 @@ model User {
 }
 
 model Driver {
-  id             String @id @default(uuid())
+  id             String   @id @default(uuid())
   name           String
-  email          String @unique
+  email          String   @unique
   phone          String
+  password_hash  String
   driver_license String
   license_plate  String
   vehicle_model  String
-  photo          String
+  photo          String?
+  created_at     DateTime @default(now())
 
   @@map("drivers")
 }
