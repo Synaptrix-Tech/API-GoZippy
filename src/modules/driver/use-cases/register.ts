@@ -2,6 +2,9 @@ import { Driver } from '@prisma/client'
 
 import { IDriversRepository } from '../repositories/IDriversRepository'
 import { hash } from 'bcryptjs'
+import { DriverEmailAlreadyExistsError } from '../errors/driver-email-already-exists-error'
+import { LicensePlateAlreadyRegisteredError } from '../errors/license-plate-already-registered-error'
+import { DriverLicenseAlreadyRegisteredError } from '../errors/driver-license-already-exists-error'
 
 interface IRegisterUseCaseRequest {
   name: string
@@ -36,21 +39,21 @@ export class RegisterUseCase {
     )
 
     if (driverWithSameEmail) {
-      throw new Error('Driver already exists')
+      throw new DriverEmailAlreadyExistsError()
     }
 
     const driverWithSameDriverLicense =
       await this.driversRepository.findDriverByDriverLicense(driver_license)
 
     if (driverWithSameDriverLicense) {
-      throw new Error('Driver already exists')
+      throw new DriverLicenseAlreadyRegisteredError()
     }
 
     const driverWithSameLicensePlate =
       await this.driversRepository.findDriverByLicensePlate(license_plate)
 
     if (driverWithSameLicensePlate) {
-      throw new Error('Driver already exists')
+      throw new LicensePlateAlreadyRegisteredError()
     }
 
     const driver = await this.driversRepository.create({
