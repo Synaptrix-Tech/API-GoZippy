@@ -5,6 +5,44 @@ import { randomUUID } from 'crypto'
 export class InMemoryDriversRepository implements IDriversRepository {
   public drivers: Driver[] = []
 
+  async findDriverByEmail(email: string): Promise<Driver | null> {
+    const driver = this.drivers.find((driver) => driver.email === email)
+
+    if (!driver) {
+      return null
+    }
+
+    return driver
+  }
+
+  async findDriverByDriverLicense(
+    driver_license: string,
+  ): Promise<Driver | null> {
+    const driver = this.drivers.find(
+      (driver) => driver.driver_license === driver_license,
+    )
+
+    if (!driver) {
+      return null
+    }
+
+    return driver
+  }
+
+  async findDriverByLicensePlate(
+    license_plate: string,
+  ): Promise<Driver | null> {
+    const driver = this.drivers.find(
+      (driver) => driver.license_plate === license_plate,
+    )
+
+    if (!driver) {
+      return null
+    }
+
+    return driver
+  }
+
   async create(data: Prisma.DriverCreateInput): Promise<Driver> {
     const driver = {
       id: randomUUID(),
