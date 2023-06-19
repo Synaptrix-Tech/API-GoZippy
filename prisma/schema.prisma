@@ -25,8 +25,8 @@ model Driver {
   email          String   @unique
   phone          String
   password_hash  String
-  driver_license String
-  license_plate  String
+  driver_license String   @unique
+  license_plate  String   @unique
   vehicle_model  String
   photo          String?
   created_at     DateTime @default(now())
