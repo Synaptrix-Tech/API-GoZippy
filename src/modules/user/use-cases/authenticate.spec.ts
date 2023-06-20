@@ -17,6 +17,7 @@ describe('Authenticate Use Case', () => {
     await inMemoryUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
+      phone: '12123456789',
       password_hash: await hash('123456', 6),
     })
 
@@ -41,6 +42,7 @@ describe('Authenticate Use Case', () => {
     await inMemoryUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
+      phone: '12123456789',
       password_hash: await hash('123456', 6),
     })
 
