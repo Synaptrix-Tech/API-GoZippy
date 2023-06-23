@@ -1,5 +1,6 @@
 import fastify from 'fastify'
 import { ZodError } from 'zod'
+import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
 import path from 'node:path'
@@ -11,6 +12,17 @@ import { driversRoutes } from './http/controllers/driver/routes'
 export const app = fastify()
 
 const pathOpenApi = path.join(__dirname, 'docs', 'openapi.json')
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: '10m',
+  },
+})
 
 app.register(fastifySwagger, {
   mode: 'static',
