@@ -90,6 +90,70 @@
           }
         }
       }
+    },
+    "/users/sessions": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Authentication session",
+        "description": "Create a authentication session",
+        "requestBody": {
+          "description": "Create a authentication session",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "uniqueItems": true,
+                  "minLength": 5,
+                  "maxLength": 255,
+                  "description": "The user email"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password",
+                  "minLength": 6,
+                  "maxLength": 128,
+                  "description": "The user password, will be encrypted"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ],
+              "example": {
+                "email": "johndoe@example.com",
+                "password": "Password@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials | Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -145,18 +209,6 @@
           "message": {
             "type": "string",
             "example": "error information"
-          }
-        }
-      }
-    },
-    "responses": {
-      "ValidationError": {
-        "description": "Validation error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/error"
-            }
           }
         }
       }
