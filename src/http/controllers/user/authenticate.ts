@@ -23,13 +23,7 @@ export async function authenticate(
     })
 
     const token = await reply.jwtSign({
-<<<<<<< HEAD
       sub: user.id,
-=======
-      sign: {
-        sub: user.id,
-      },
->>>>>>> aea84efe1cea2f1e59bb063a5c64929e9804029c
     })
 
     return reply
