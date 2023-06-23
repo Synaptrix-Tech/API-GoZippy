@@ -1,0 +1,217 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API GoZippy",
+    "description": "In this project, an API for a delivery application, called GoZippy, will be developed.",
+    "termsOfService": "https://github.com/Synaptrix-Tech/API-GoZippy/README.md",
+    "version": "0.0.1"
+  },
+  "externalDocs": {
+    "description": "Repository of project",
+    "url": "https://github.com/Synaptrix-Tech/API-GoZippy"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "Development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Documentation",
+      "description": "Routes about documentation"
+    },
+    {
+      "name": "Users",
+      "description": "Routes about users"
+    },
+    {
+      "name": "Drivers",
+      "description": "Routes about drivers"
+    },
+    {
+      "name": "Addresses",
+      "description": "Routes about addresses"
+    }
+  ],
+  "paths": {
+    "/docs": {
+      "get": {
+        "tags": [
+          "Documentation"
+        ],
+        "summary": "OpenAPI documentation",
+        "description": "Serve the OpenAPI documentation in Swagger UI.",
+        "responses": {
+          "200": {
+            "description": "API documentation fetched successfully.",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new user",
+        "description": "Create a new user",
+        "requestBody": {
+          "description": "Create a new user in database",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully."
+          },
+          "409": {
+            "description": "E-mail already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/sessions": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Authentication session",
+        "description": "Create a authentication session",
+        "requestBody": {
+          "description": "Create a authentication session",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "uniqueItems": true,
+                  "minLength": 5,
+                  "maxLength": 255,
+                  "description": "The user email"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password",
+                  "minLength": 6,
+                  "maxLength": 128,
+                  "description": "The user password, will be encrypted"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ],
+              "example": {
+                "email": "johndoe@example.com",
+                "password": "Password@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials | Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "The user name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "uniqueItems": true,
+            "minLength": 5,
+            "maxLength": 255,
+            "description": "The user email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 6,
+            "maxLength": 128,
+            "description": "The user password, will be encrypted"
+          },
+          "phone": {
+            "type": "string",
+            "format": "phone",
+            "minLength": 11,
+            "maxLength": 11,
+            "description": "The user phone"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "password"
+        ],
+        "example": {
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "phone": "99999999999",
+          "password": "Password@123"
+        }
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "error information"
+          }
+        }
+      }
+    }
+  }
+}

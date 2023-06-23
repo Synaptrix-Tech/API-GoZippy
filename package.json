@@ -10,6 +10,8 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
+    "@fastify/swagger": "^8.6.0",
+    "@fastify/swagger-ui": "^1.9.0",
     "@prisma/client": "^4.15.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.1.4",
