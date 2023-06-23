@@ -10,6 +10,7 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
+    "@fastify/cookie": "^8.3.0",
     "@fastify/jwt": "^7.0.0",
     "@fastify/swagger": "^8.6.0",
     "@fastify/swagger-ui": "^1.9.0",

@@ -3,6 +3,7 @@ import { ZodError } from 'zod'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
+import fastifyCookie from '@fastify/cookie'
 import path from 'node:path'
 
 import { env } from './env'
@@ -16,13 +17,15 @@ const pathOpenApi = path.join(__dirname, 'docs', 'openapi.json')
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   cookie: {
-    cookieName: 'refreshToken',
+    cookieName: 'token',
     signed: false,
   },
   sign: {
     expiresIn: '10m',
   },
 })
+
+app.register(fastifyCookie)
 
 app.register(fastifySwagger, {
   mode: 'static',
