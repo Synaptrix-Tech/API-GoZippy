@@ -9,6 +9,7 @@ import path from 'node:path'
 import { env } from './env'
 import { usersRoutes } from './http/controllers/user/routes'
 import { driversRoutes } from './http/controllers/driver/routes'
+import { addressRoutes } from './http/controllers/address/routes'
 
 export const app = fastify()
 
@@ -47,6 +48,10 @@ app.register(usersRoutes, {
 
 app.register(driversRoutes, {
   prefix: '/drivers',
+})
+
+app.register(addressRoutes, {
+  prefix: '/addresses',
 })
 
 app.setErrorHandler((error, _, reply) => {
