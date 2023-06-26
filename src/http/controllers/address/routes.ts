@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify'
+
 import { create } from './create'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { get } from './get'
