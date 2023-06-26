@@ -24,4 +24,42 @@ describe('Address Use Case', () => {
 
     expect(address.id).toEqual(expect.any(String))
   })
+
+  it('should be able to create new address as selected when user has no address', async () => {
+    const { address } = await sut.execute({
+      userId: 'user-id',
+      street: 'street',
+      city: 'city',
+      state: 'state',
+      country: 'country',
+      zipCode: 'zip-code',
+      number: 'number',
+    })
+
+    expect(address.selected).toEqual(true)
+  })
+
+  it('should be able to create new unselected address when user has address', async () => {
+    await sut.execute({
+      userId: 'user-id',
+      street: 'street',
+      city: 'city',
+      state: 'state',
+      country: 'country',
+      zipCode: 'zip-code',
+      number: 'number',
+    })
+
+    const { address } = await sut.execute({
+      userId: 'user-id',
+      street: 'street',
+      city: 'city',
+      state: 'state',
+      country: 'country',
+      zipCode: 'zip-code',
+      number: 'number',
+    })
+
+    expect(address.selected).toEqual(false)
+  })
 })

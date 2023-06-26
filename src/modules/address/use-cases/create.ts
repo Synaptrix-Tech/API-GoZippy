@@ -30,6 +30,12 @@ export class CreateUseCase {
     number,
     complement,
   }: ICreateUseCaseRequest): Promise<ICreateUseCaseResponse> {
+    const hasAddress = await this.addressesRepository.findAddressesByUserId(
+      userId,
+    )
+
+    const selected = !(hasAddress!.length > 0)
+
     const address = await this.addressesRepository.create({
       userId,
       street,
@@ -39,7 +45,7 @@ export class CreateUseCase {
       zipCode,
       number,
       complement,
-      selected: false,
+      selected,
     })
 
     return { address }
