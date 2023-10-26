@@ -7,14 +7,14 @@
     "start": "",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest",
-    "test:watch": "vitest --watch"
+    "prisma:migrate": "npx prisma migrate dev"
   },
   "dependencies": {
     "@fastify/cookie": "^8.3.0",
     "@fastify/jwt": "^7.0.0",
     "@fastify/swagger": "^8.6.0",
     "@fastify/swagger-ui": "^1.9.0",
-    "@prisma/client": "^4.15.0",
+    "@prisma/client": "^5.5.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.1.4",
     "fastify": "^4.18.0",
